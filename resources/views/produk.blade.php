@@ -44,19 +44,19 @@
         <div class="product-card">
         <img src="{{ url('storage/public/images/'. $item->image)}}" alt="Produk 1">
         <h3>{{ $item->nama_produk }}</h3>
-        <p class="price">{{ $item->harga }}</p>
+        <p class="price">Rp. {{ number_format($item->harga, 0, ',', '.') }}</p>
         <p class="description">{{ $item->deskripsi }}</p>
-        <button class="card-button">
-            <!-- Teks untuk mengedit produk -->
-            <a href="{{ url('produk/edit/'.$item->kode_produk) }}" class="add-to-cart">Edit</a>
-        </button>
 
-            {{-- <button class="card-button"> Delete </button>--}}
-        <form action="{{ url('produk/delete/'. $item->kode_produk) }}" method="POST">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-danger">Delete</button>
-        </form>
+        <!-- Teks untuk memgedit produk -->
+       <a href="{{ url('produk/edit/'.$item->kode_produk) }}" class="add-to-cart">Edit</a>
+       <!-- Teks untuk penghapusan produk -->
+       <a href="#" class="cancel-to-cart" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $item->kode_produk }}').submit();">
+           DELETE
+       </a>
+       <form id="delete-form-{{ $item->kode_produk }}" action="{{ url('produk/delete/'.$item->kode_produk) }}" method="POST" style="display: none;">
+           @csrf
+           @method('DELETE')
+       </form>
     </div>
     @endforeach
 </div>

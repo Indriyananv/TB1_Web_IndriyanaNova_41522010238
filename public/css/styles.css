@@ -105,15 +105,28 @@ header h1 {
 .product-card {
     background-color: white;
     padding: 20px;
-    width: 250px;
+    width: 250px; /* Lebar tetap */
+    height: 450px; /* Tinggi tetap, sesuaikan dengan kebutuhan */
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.3s ease; /* Animasi hover */
+}
+
+.product-card .description {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 15px;
+    height: 40px; /* Tinggi tetap untuk deskripsi */
+    overflow: hidden; /* Menyembunyikan teks yang berlebih */
+    white-space: nowrap; /* Tidak memotong teks ke baris baru */
+    text-overflow: ellipsis; /* Menampilkan "..." jika teks terlalu panjang */
 }
 
 .product-card img {
     width: 100%;
-    height: auto;
+    height: 225px; /* Tetapkan tinggi gambar agar seragam */
+    object-fit: cover; /* Menyesuaikan gambar agar sesuai dengan frame tanpa mengubah proporsi */
     border-radius: 5px;
 }
 
@@ -127,12 +140,6 @@ header h1 {
     font-size: 18px;
     color: #27ae60;
     margin-bottom: 10px;
-}
-
-.product-card .description {
-    font-size: 14px;
-    color: #515050;
-    margin-bottom: 15px;
 }
 
 .add-product {
@@ -186,4 +193,44 @@ footer {
     margin-top: 30px;
     font-size: 14px;
     color: #292727;
+}
+
+/* Tombol Keranjang dengan Animasi */
+.add-to-cart,
+.cancel-to-cart {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 5px; /* Jarak antar tombol */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Transisi untuk animasi hover */
+    text-decoration: none; /* Remove underline */
+}
+
+/* Remove default link styles for buttons */
+.add-to-cart:visited,
+.add-to-cart:active,
+.cancel-to-cart:visited,
+.cancel-to-cart:active {
+    color: white; /* Change to your desired color */
+    text-decoration: none; /* Ensure no underline */
+}
+
+.add-to-cart:hover,
+.cancel-to-cart:hover {
+    background-color: #2980b9;
+    transform: scale(1.05); /* Efek zoom saat di-hover */
+}
+
+/* Tombol Cancel dengan Animasi */
+.cancel-to-cart {
+    background-color: #e74c3c;
+}
+
+.cancel-to-cart:hover {
+    background-color: #c0392b;
+    transform: scale(1.05); /* Efek zoom saat di-hover */
 }
