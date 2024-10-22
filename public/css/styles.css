@@ -19,6 +19,7 @@ body {
 }
 
 .sidebar h2 {
+    text-align: center;
     margin-bottom: 20px;
 }
 
@@ -38,7 +39,7 @@ body {
 }
 
 .sidebar ul li a:hover {
-    color: #3498db;
+    color: #f0f4f7;
 }
 
 /* Main Content */
@@ -69,9 +70,9 @@ header h1 {
     background-color: white;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 4px 6px rgba(0, 0, 0, 0.1);
-    width: 23%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
+    width: 23%;
 }
 
 .card h3 {
@@ -85,11 +86,104 @@ header h1 {
     color: #27ae60;
 }
 
-/* Chart */
-#chart {
+.card-button a {
+    text-decoration: none;
+    color: white;
+}
+
+/* Product Grid */
+.product-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    display: flex;
+    align-items: center;
+}
+
+/* Product Card */
+.product-card {
     background-color: white;
     padding: 20px;
+    width: 250px;
     border-radius: 10px;
-    box-shadow: 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
+}
+
+.product-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.product-card h3 {
+    margin: 15px 0;
+    font-size: 20px;
+    color: #333;
+}
+
+.product-card .price {
+    font-size: 18px;
+    color: #27ae60;
+    margin-bottom: 10px;
+}
+
+.product-card .description {
+    font-size: 14px;
+    color: #515050;
+    margin-bottom: 15px;
+}
+
+.add-product {
+    background-color: hsl(200, 81%, 53%);
+    color: white; /* Mengubah warna teks menjadi putih */
+    border: none;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    text-align: center;
+}
+/* Flexbox untuk menyejajarkan tombol Edit dan Delete */
+.btn-danger {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px; /* Jarak antara tombol */
+}
+.card-button{
+    background-color: hsl(200, 81%, 53%); /* css untuk edit dan delete */
+    color: rgb(248, 243, 243);
+    border: none;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    text-align: center;
+    display: inline-block;
+}
+
+.cancel-to-cart {
+    background-color: #89b3f6; /* Red for minus button */
+}
+
+.add-to-cart:hover {
+    background-color: #faf2b7; /* Lighter green on hover */
+}
+
+.cancel-to-cart:hover {
+    background-color: #faf2b7; /* Darker red on hover */
+}
+
+.card-button:hover {
+    background-color: #f7f8f9;
+}
+
+footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 14px;
+    color: #292727;
 }
