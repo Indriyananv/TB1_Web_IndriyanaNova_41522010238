@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Produk;
 use App\Http\Requests\StoreProdukRequest;
 use App\Http\Requests\UpdateProdukRequest;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class ProdukController extends Controller
 {
@@ -14,9 +17,12 @@ class ProdukController extends Controller
      */
     public function ViewProduk()
     {
-        $produk = Produk::all(); //mengambil data di tabel prduk
-        return view('produk',['produk'=> $produk]);
+        $isAdmin = Auth::user() && Auth::user()->role === 'admin';
+        $produk = $isAdmin ? Produk::all() : Produk::where('user_id', Auth::id())->get();
+
+        return view('produk', compact('produk'));
     }
+
     public function CreateProduk(Request $request)
     {
         // Menambahkan variabel $filePath untuk mendefinisikan penyimpanan file
@@ -33,20 +39,23 @@ class ProdukController extends Controller
             'deskripsi' => $request->deskripsi,
             'harga' => $request->harga, // Add the harga field
             'jumlah_produk' => $request->jumlah_produk,
-            'image' => $imageName
+            'image' => $imageName,
+            'user_id' => Auth::user()->id
         ]);
 
-        return redirect('/produk');
+        return redirect(Auth::user()->role.'/produk');
     }
     public function ViewAddProduk()
     {
         return view('addproduk'); //menampilkan view dari addproduk.blade.php
+        return redirect(Auth::user()->role === 'admin'.'/produk');
     }
     public function DeleteProduk ($kode_produk)
     {
         Produk::where('kode_produk', $kode_produk)->delete(); //find the record by ID
         // Redirect back to the index page with a succes message
-        return redirect('/produk');
+        return redirect(Auth::user()->role.'/produk');
+
     }
 
     public function ViewEditProduk($kode_produk)
@@ -56,7 +65,7 @@ class ProdukController extends Controller
 
         // Jika produk tidak ditemukan, redirect ke halaman produk dengan pesan error
         if (!$produk) {
-        return redirect('/produk')->with('error', 'Produk tidak ditemukan');
+            return redirect(Auth::user()->role.'/produk')->with('error', 'Produk tidak ditemukan');
         }
     // Tampilkan view edit dengan data produk
     return view('editproduk', compact('produk'));
@@ -80,6 +89,26 @@ class ProdukController extends Controller
             'image'          => $imageName
         ]);
 
-        return redirect('/produk');
+        return redirect(Auth::user()->role.'/produk');
+
     }
+
+    public function ViewLaporan()
+    {
+        $isAdmin = Auth::user() && Auth::user()->role === 'admin';
+        $laporan = $isAdmin ? Produk::all() : Produk::where('user_id', Auth::id())->get();
+        return view('laporan', ['products'=> $laporan]);
+    }
+
+    public function print()
+    {
+    // Mengambil semua data produk
+    $products = Produk::all();
+
+    // Load view untuk PDF dengan data produk
+    $pdf = Pdf::loadView('report', compact('products'));
+    // Menampilkan PDF langsung di browser
+    return $pdf->stream('laporan-produk.pdf');
+    }
+
 }
